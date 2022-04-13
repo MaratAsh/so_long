@@ -16,7 +16,7 @@ HEADER	=	so_long.h
 FLDR_S	=	srcs/
 FLDR_O	=	objs/
 
-SRCS	=	ft_parse.c			
+SRCS	=	ft_parse.c			ft_map_check.c			ft_error.c
 
 OBJS	=	${SRCS:.c=.o}
 
@@ -27,40 +27,33 @@ FLAGS	=	-Wall -Wextra -Werror
 
 LIB_INCL	=	./libft/libft.a
 LIB_MAKE	=	make -C $(dir $(LIB_INCL))
-GNL_INCL	=	./get_next_line/get_next_line.a
-GNL_MAKE	=	make -C $(dir $(GNL_INCL))
 
 all: lib $(FLDR_O) $(NAME)
 
 $(LIB_INCL):
 		${LIB_MAKE} all
 
-$(GNL_INCL):
-		${GNL_MAKE} all
-
-lib: $(LIB_INCL) $(GNL_INCL)
+lib: $(LIB_INCL)
 
 $(FLDR_O):
 		mkdir $(FLDR_O)
 
-$(NAME): main.o ${OBJS_WD} ${HEADER}
-		${CC} $(OBJS_WD) main.o -o $(NAME) -I. $(LIB_INCL) $(GNL_INCL)
+$(NAME): ${FLDR_O}main.o ${OBJS_WD} ${HEADER}
+		${CC} $(OBJS_WD) ${FLDR_O}main.o  -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) -I. $(LIB_INCL)
 
 clean:
 		${LIB_MAKE} clean
-		${GNL_MAKE} clean
-		rm -rf main.o ${OBJS_WD} ${OBJS_B_WD}
+		rm -rf ${FLDR_O}main.o ${OBJS_WD} ${OBJS_B_WD}
 
 fclean:
 		${LIB_MAKE} fclean
-		${GNL_MAKE} fclean
-		rm -rf main.o ${OBJS_WD} ${OBJS_B_WD} ${NAME}
+		rm -rf ${FLDR_O}main.o ${OBJS_WD} ${OBJS_B_WD} ${NAME}
 
 ${FLDR_O}%.o : ${FLDR_S}%.c ${HEADER}
-		gcc ${FLAGS} -c $< -o $@
+		gcc ${FLAGS} -Imlx -c $< -o $@
 
-%.o : %.c ${HEADER}
-		gcc ${FLAGS} -c $< -o $@
+${FLDR_O}%.o : %.c ${HEADER}
+		gcc ${FLAGS} -Imlx -c $< -o $@
 
 re: fclean all
 
