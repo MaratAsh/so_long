@@ -22,7 +22,7 @@
 # include <mlx.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 50
 # endif
 
 # define MAP_EXACTLY_NOT_VALID 11
@@ -34,10 +34,13 @@ typedef struct s_map
 	unsigned int	heigth;
 	unsigned int	character_x;
 	unsigned int	character_y;
+	void			*mlx;
+	void			*mlx_win;
 }				t_map;
 
 t_map	*ft_parse(char *map_file);
 void	ft_error(char *msg);
 void	ft_map_check(t_map *map);
+void	ft_draw_all(t_map *map);
 
 #endif

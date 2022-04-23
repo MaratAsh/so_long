@@ -32,6 +32,12 @@ void	ft_free_map(t_map *map)
 	free(map);
 }
 
+int window_close(void *params)
+{
+	(void) params;
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	char	*point;
@@ -48,6 +54,12 @@ int	main(int argc, char **argv)
 	if (ft_strncmp(point + 1, "ber", 4) != 0)
 		ft_error("Error: Map: file extension not .ber\n");
 	map = ft_parse(argv[1]);
+	map->mlx = mlx_init();
 
+	map->mlx_win = mlx_new_window(map->mlx, map->width * 100, map->heigth * 100,
+							 "So Long");
+	mlx_hook(map->mlx_win, 17, 0, window_close, NULL);
+	ft_draw_all(map);
+	mlx_loop(map->mlx);
 	ft_free_map(map);
 }

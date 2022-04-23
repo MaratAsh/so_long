@@ -12,26 +12,30 @@
 
 #include "../so_long.h"
 
-static char	*ft_get_content(int fd)
+char	*ft_get_content(int fd)
 {
 	char	*str;
-	char	*new_line;
-	int		buffer_c;
-	int		buff_read;
+	char	*new_str;
+	int		buff_c;
+	size_t	readed;
+	size_t	str_len;
 
-	buffer_c = 2;
-	str = malloc(BUFFER_SIZE + 1);
-	buff_read = read(fd, str, BUFFER_SIZE);
-	while (buff_read == BUFFER_SIZE)
+	buff_c = 1;
+	str = malloc(BUFFER_SIZE * buff_c + 1);
+	readed = read(fd, str, BUFFER_SIZE);
+	str_len = 0;
+	while (readed > 0)
 	{
-		new_line = malloc(BUFFER_SIZE * buffer_c + 1);
-		ft_strlcpy(new_line, str, ft_strlen(str) + 1);
+		str[str_len + readed] = 0;
+		str_len = ft_strlen(str);
+		new_str = malloc(str_len + BUFFER_SIZE * (buff_c + 1) + 1);
+		ft_strlcpy(new_str, str, str_len + 1);
 		free(str);
-		str = new_line;
-		buff_read = read(fd, str + BUFFER_SIZE * (buffer_c - 1), BUFFER_SIZE);
-		str[BUFFER_SIZE * (buffer_c - 1) + buff_read] = 0;
-		buffer_c++;
+		str = new_str;
+		readed = read(fd, str + str_len, BUFFER_SIZE);
+		buff_c++;
 	}
+	str[BUFFER_SIZE * buff_c] = 0;
 	return (str);
 }
 
@@ -48,12 +52,20 @@ t_map	*ft_parse(char *map_file)
 	if (!map)
 		ft_error("Error: Malloc: allocation failed\n");
 	str = ft_get_content(fd);
+	printf("\"%s\"\n", str);
 	if (!str)
 		return (map);
 	if (ft_strlen(str) <= MAP_EXACTLY_NOT_VALID
 		|| ft_strnstr(str, "\n\n", ft_strlen(str)))
 		ft_error("Error: Map: not valid card\n");
-	map->map = ft_split(str, '\n');
+	map->map = ft_split_inline(str, '\n');
+	int i = 0;
+	while (map->map[i])
+	{
+		char *string = map->map[i];
+		(void) string;
+		i++;
+	}
 	ft_map_check(map);
 	map->width = ft_strlen(map->map[0]);
 	if (str)
