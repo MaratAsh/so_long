@@ -16,6 +16,8 @@ t_size	ft_strlen(char *s)
 {
 	t_size	sz;
 
+	if (s == (void *) 0)
+		return (0);
 	sz = 0;
 	while (s[sz])
 		sz++;
