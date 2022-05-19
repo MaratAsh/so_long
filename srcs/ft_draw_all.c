@@ -12,74 +12,42 @@
 
 #include "../so_long.h"
 
-void	*ft_get_img(t_map *map, int img_type)
-{
-	void	*img;
-	int		img_width;
-	int		img_height;
 
-	img = NULL;
-	if (img_type == 1)
-		img = mlx_xpm_file_to_image(map->mlx, "./textures/background.xpm",
-									&img_width, &img_height);
-	else if (img_type == 2)
-		img = mlx_xpm_file_to_image(map->mlx, "./textures/collectible.xpm",
-									&img_width, &img_height);
-	else if (img_type == 3)
-		img = mlx_xpm_file_to_image(map->mlx, "./textures/stone.xpm",
-									&img_width, &img_height);
-	else if (img_type == 4)
-		img = mlx_xpm_file_to_image(map->mlx, "./textures/exit.xpm",
-									&img_width, &img_height);
-	else if (img_type == 5)
-		img = mlx_xpm_file_to_image(map->mlx, "./textures/character.xpm",
-									&img_width, &img_height);
-	if (!img)
-		img = mlx_xpm_file_to_image(map->mlx, "./textures/unknown.xpm",
-								   &img_width, &img_height);
-	return img;
-}
-
-void	ft_draw_by_char(t_map *map, unsigned int i, unsigned int j)
-{
-	void	*img;
-
-	img = ft_get_img(map, 1);
-	if (img)
-		mlx_put_image_to_window(map->mlx, map->mlx_win, img, 100 * j, 100 * i);
-	if (map->map[i][j] == 'C')
-		img = ft_get_img(map, 2);
-	else if (map->map[i][j] == '1')
-		img = ft_get_img(map, 3);
-	else if (map->map[i][j] == 'E')
-		img = ft_get_img(map, 4);
-	else if (ft_strchr("01P", map->map[i][j]) == NULL)
-		img = ft_get_img(map, 0);
-	else
-		return;
-	if (img)
-		mlx_put_image_to_window(map->mlx, map->mlx_win, img, 100 * j, 100 * i);
-}
-
-void	ft_draw_all(t_map *map)
+void	ft_draw_all(t_game *game)
 {
 	void			*img;
 	unsigned int	i;
 	unsigned int	j;
+	t_list			*list;
+	t_player		*p;
 
 	i = 0;
-	while (i < map->heigth)
+	while (i < game->height)
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < game->width)
 		{
-			ft_draw_by_char(map, i, j);
+			img = game->textures.background.image;
+			mlx_put_image_to_window(game->mlx, game->mlx_win, img,
+									game->part_width * j,game->part_height * i);
+			if (game->map[i][j] == '1')
+				img = game->textures.border_all.image;
+			else if (game->map[i][j] == 'E')
+				img = ((t_texture *) game->textures.exits_close->content)->image;
+			else
+				img = NULL;
+			if (img)
+				mlx_put_image_to_window(game->mlx, game->mlx_win, img,
+										game->part_width * j,game->part_height * i);
 			j++;
 		}
 		i++;
 	}
-	img = ft_get_img(map, 5);
-	if (img)
-		mlx_put_image_to_window(map->mlx, map->mlx_win, img, 100 * map->character_x, 100 *
-		map->character_y);
+	list = game->players;
+	while (list)
+	{
+		p = ((t_player *) list->content);
+		draw_map_player(game, p);
+		list = list->next;
+	}
 }

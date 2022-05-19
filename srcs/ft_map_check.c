@@ -22,7 +22,7 @@ void	ft_check_objects_requirements(int *params)
 		ft_error("Error: Map: starting position not exist\n");
 }
 
-void	ft_check_symbol(t_map *map, unsigned int i, unsigned int j, int *params)
+void	ft_check_symbol(t_game *map, unsigned int i, unsigned int j, int *params)
 {
 	if (ft_strchr("01CEP", map->map[i][j]) == NULL)
 		ft_error("Error: Map: unacceptable characters\n");
@@ -43,7 +43,7 @@ void	ft_check_symbol(t_map *map, unsigned int i, unsigned int j, int *params)
 	}
 }
 
-void	ft_check_map_around_wall(t_map *map)
+void	ft_check_map_around_wall(t_game *map)
 {
 	unsigned int	i;
 
@@ -52,12 +52,12 @@ void	ft_check_map_around_wall(t_map *map)
 	{
 		if (map->map[0][i] != '1')
 			ft_error("Error: Map: map not surrounded by wall (top)\n");
-		else if (map->map[map->heigth - 1][i] != '1')
+		else if (map->map[map->height - 1][i] != '1')
 			ft_error("Error: Map: map not surrounded by wall (bottom)\n");
 		i++;
 	}
 	i = 0;
-	while (i < map->heigth)
+	while (i < map->height)
 	{
 		if (map->map[i][0] != '1')
 			ft_error("Error: Map: map not surrounded by wall (left)\n");
@@ -67,7 +67,7 @@ void	ft_check_map_around_wall(t_map *map)
 	}
 }
 
-void	ft_map_check(t_map *map)
+void	ft_map_check(t_game *map)
 {
 	unsigned int	str_i;
 	unsigned int	map_i;
@@ -77,11 +77,9 @@ void	ft_map_check(t_map *map)
 	if (!(map->map))
 		ft_error("Error: Malloc: split have not allocate the memory\n");
 	map->width = ft_strlen(map->map[0]);
-	printf("(%zu) \"%s\"\n", ft_strlen(map->map[0]), map->map[0]);
 	map_i = 1;
 	while (map->map[map_i])
 	{
-		printf("(%zu) \"%s\"\n", ft_strlen(map->map[map_i]), map->map[map_i]);
 		if (ft_strlen(map->map[map_i]) != map->width)
 			ft_error("Error: Map: map size error\n");
 		str_i = 0;
@@ -92,7 +90,6 @@ void	ft_map_check(t_map *map)
 		}
 		map_i++;
 	}
-	map->heigth = map_i;
 	ft_check_map_around_wall(map);
 	ft_check_objects_requirements(params);
 }
