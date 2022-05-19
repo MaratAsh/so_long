@@ -58,26 +58,23 @@ static int	ft_split_inline_part(char *s, char c, char **arr_str)
 	size_t	word_len;
 	size_t	dsp;
 	size_t	word_cnt;
+	size_t	count;
 
+	count = ft_strlen(s);
 	dsp = 0;
 	word_cnt = 0;
-	while (s[dsp])
+	while (dsp < count)
 	{
 		while (s[dsp] == c && c)
-		{
-			s[dsp] = 0;
 			dsp++;
-		} 
 		if (!s[dsp])
 			break;
 		word_len = ft_size_part((char *) s + dsp, c);
 		arr_str[word_cnt] = s + dsp;
 		if (arr_str[word_cnt] == NULL)
 			return (ft_split_inline_free(arr_str));
-		ft_strlcpy(arr_str[word_cnt], s + dsp, word_len + 1);
-		dsp += word_len;
-		while (*(s + dsp) == c && c != 0)
-			++dsp;
+		s[dsp + word_len] = 0;
+		dsp += word_len + 1;
 		++word_cnt;
 	}
 	arr_str[word_cnt] = NULL;
