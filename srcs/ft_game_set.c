@@ -58,6 +58,7 @@ void	ft_game_set(t_game *game)
 	game->part_height = 100;
 	game->part_width = 100;
 	game->draw_rate = 1000;
+	game->moves = 0;
 	game->width = ft_strlen(game->map[0]);
 	i = 0;
 	while (game->map[i])
@@ -67,8 +68,6 @@ void	ft_game_set(t_game *game)
 		{
 			if (game->map[i][j] == 'P')
 			{
-				game->character_x = j;
-				game->character_y = i;
 				game->map[i][j] = '0';
 				list = ft_lstnew(create_player(j, i));
 				ft_lstadd_back(&(game->players), list);
