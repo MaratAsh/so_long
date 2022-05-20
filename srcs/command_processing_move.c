@@ -45,6 +45,7 @@ void	command_processing_move(t_game *game, t_player *player, int move)
 	unsigned	i;
 	unsigned	count;
 
+	t = NULL;
 	if (move & CHARACTER_RIGHT)
 	{
 		to_x = player->map_x + 1;
