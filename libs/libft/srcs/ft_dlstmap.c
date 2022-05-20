@@ -6,7 +6,7 @@
 /*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 20:10:52 by alcierra          #+#    #+#             */
-/*   Updated: 2022/03/11 14:47:56 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/20 10:13:15 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	ft_dlstmap_(t_dlist *dlst, void *(*f)(void *),
 t_dlist	*ft_dlstmap(t_dlist *dlst, void *(*f)(void *), void (*del)(void *))
 {
 	t_dlist	*start;
-	t_dlist	*curr;
 
 	start = NULL;
 	if (dlst)
@@ -51,7 +50,6 @@ t_dlist	*ft_dlstmap(t_dlist *dlst, void *(*f)(void *), void (*del)(void *))
 		if (del)
 			(*del)(dlst->content);
 		dlst = dlst->next;
-		curr = start;
 	}
 	ft_dlstmap_(dlst, f, del, start);
 	return (start);
