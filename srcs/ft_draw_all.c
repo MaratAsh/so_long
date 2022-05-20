@@ -30,12 +30,12 @@ void	ft_draw_all(t_game *game)
 			img = game->textures.background.image;
 			mlx_put_image_to_window(game->mlx, game->mlx_win, img,
 									game->part_width * j,game->part_height * i);
+			img = NULL;
 			if (game->map[i][j] == '1')
-				img = game->textures.border_all.image;
+				draw_map_wall(game, j, i);
 			else if (game->map[i][j] == 'E')
 				img = ((t_texture *) game->textures.exits_close->content)->image;
-			else
-				img = NULL;
+
 			if (img)
 				mlx_put_image_to_window(game->mlx, game->mlx_win, img,
 										game->part_width * j,game->part_height * i);

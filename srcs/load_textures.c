@@ -10,20 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../so_long.h"
 
 static void	load_texture(t_game *game, struct s_texture *t, char *path)
 {
 	t->image = mlx_xpm_file_to_image(game->mlx, path,
-									 &(t->width),&(t->height));
+			&(t->width), &(t->height));
+}
+
+static void	load_obj_textures_loop(t_game *g, int i, char *s_path, t_texture *t)
+{
+	char		*temp;
+	char		*temp_1;
+
+	temp = ft_itoa(i);
+	temp_1 = ft_strjoin(temp, ".xpm");
+	free(temp);
+	temp = ft_strjoin(s_path, temp_1);
+	load_texture(g, t, temp);
+	free(temp);
+	free(temp_1);
 }
 
 static void	load_obj_textures(t_game *game, t_list **list, char *search_path)
 {
 	int			i;
-	char		*temp;
-	char 		*temp_1;
 	t_texture	*tptr;
 	t_texture	t;
 	t_list		*l;
@@ -31,15 +42,9 @@ static void	load_obj_textures(t_game *game, t_list **list, char *search_path)
 	i = 0;
 	while (1)
 	{
-		temp = ft_itoa(i);
-		temp_1 = ft_strjoin(temp, ".xpm");
-		free(temp);
-		temp = ft_strjoin(search_path, temp_1);
-		load_texture(game, &t, temp);
-		free(temp);
-		free(temp_1);
+		load_obj_textures_loop(game, i, search_path, &t);
 		if (!t.image)
-			break;
+			break ;
 		tptr = ft_calloc(1, sizeof(t_texture));
 		if (!tptr)
 			ft_error("Error: Malloc: cannot allocate memory for texture\n");
@@ -52,17 +57,42 @@ static void	load_obj_textures(t_game *game, t_list **list, char *search_path)
 	}
 }
 
+static void	load_textures_2(t_game *game)
+{
+	load_obj_textures(game, &(game->textures.coins),
+		"./textures/coin/");
+	load_obj_textures(game, &(game->textures.players),
+		"./textures/player/notactive/");
+	load_obj_textures(game, &(game->textures.players_left),
+		"./textures/player/left/");
+	load_obj_textures(game, &(game->textures.players_right),
+		"./textures/player/right/");
+	load_obj_textures(game, &(game->textures.players_down),
+		"./textures/player/down/");
+	load_obj_textures(game, &(game->textures.players_up),
+		"./textures/player/up/");
+	load_obj_textures(game, &(game->textures.exits_close),
+		"./textures/exit/close/");
+	load_obj_textures(game, &(game->textures.exits_open),
+		"./textures/exit/open/");
+}
+
 void	load_textures(t_game *game)
 {
-	load_texture(game, &(game->textures.background), "./textures/background.xpm");
-	load_texture(game, &(game->textures.border_all), "./textures/border_trbl.xpm");
+	load_texture(game, &(game->textures.background),
+		"./textures/background.xpm");
+	load_texture(game, &(game->textures.wall_all), "./textures/wall/all.xpm");
+	load_texture(game, &(game->textures.wall_tr), "./textures/wall/tr.xpm");
+	load_texture(game, &(game->textures.wall_trb), "./textures/wall/trb.xpm");
+	load_texture(game, &(game->textures.wall_trl), "./textures/wall/trl.xpm");
+	load_texture(game, &(game->textures.wall_tl),
+		"./textures/wall/tl.xpm");
+	load_texture(game, &(game->textures.wall_rb), "./textures/wall/rb.xpm");
+	load_texture(game, &(game->textures.wall_rbl), "./textures/wall/rbl.xpm");
+	load_texture(game, &(game->textures.wall_bl), "./textures/wall/bl.xpm");
+	load_texture(game, &(game->textures.wall_r), "./textures/wall/r.xpm");
+	load_texture(game, &(game->textures.wall_l), "./textures/wall/l.xpm");
+	load_texture(game, &(game->textures.wall_no), "./textures/wall/no.xpm");
 	load_texture(game, &(game->textures.unknown), "./textures/unknown.xpm");
-	load_obj_textures(game, &(game->textures.coins), "./textures/coin/");
-	load_obj_textures(game, &(game->textures.players), "./textures/player/notactive/");
-	load_obj_textures(game, &(game->textures.players_left), "./textures/player/left/");
-	load_obj_textures(game, &(game->textures.players_right), "./textures/player/right/");
-	load_obj_textures(game, &(game->textures.players_down), "./textures/player/down/");
-	load_obj_textures(game, &(game->textures.players_up), "./textures/player/up/");
-	load_obj_textures(game, &(game->textures.exits_close), "./textures/exit/close/");
-	load_obj_textures(game, &(game->textures.exits_open), "./textures/exit/open/");
+	load_textures_2(game);
 }
