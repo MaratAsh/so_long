@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.15)
 project(so_long C)
 
 include_directories(/usr/local/include/)
@@ -56,16 +56,54 @@ add_library(ft STATIC
         libs/libft/srcs/ft_lstsize_bonus.c
         )
 
-add_library(mlx STATIC
-        libs/minilibx/mlx_shaders.c
-        libs/minilibx/mlx_new_window.m
-        libs/minilibx/mlx_init_loop.m
-        libs/minilibx/mlx_new_image.m
-        libs/minilibx/mlx_xpm.c
-        libs/minilibx/mlx_int_str_to_wordtab.c
-        libs/minilibx/mlx_png.c
-        libs/minilibx/mlx_mouse.m
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    add_library(mlx STATIC
+        libs/minilibx/macos/mlx_shaders.c
+        libs/minilibx/macos/mlx_new_window.m
+        libs/minilibx/macos/mlx_init_loop.m
+        libs/minilibx/macos/mlx_new_image.m
+        libs/minilibx/macos/mlx_xpm.c
+        libs/minilibx/macos/mlx_int_str_to_wordtab.c
+        libs/minilibx/macos/mlx_png.c
+        libs/minilibx/macos/mlx_mouse.m
         )
+else ()
+    add_library(mlx STATIC
+        libs/minilibx/linux/mlx_init.c
+        libs/minilibx/linux/mlx_new_window.c
+        libs/minilibx/linux/mlx_pixel_put.c
+        libs/minilibx/linux/mlx_loop.c
+        libs/minilibx/linux/mlx_mouse_hook.c
+        libs/minilibx/linux/mlx_key_hook.c
+        libs/minilibx/linux/mlx_expose_hook.c
+        libs/minilibx/linux/mlx_loop_hook.c
+        libs/minilibx/linux/mlx_int_anti_resize_win.c
+        libs/minilibx/linux/mlx_int_do_nothing.c
+        libs/minilibx/linux/mlx_int_wait_first_expose.c
+        libs/minilibx/linux/mlx_int_get_visual.c
+        libs/minilibx/linux/mlx_flush_event.c
+        libs/minilibx/linux/mlx_string_put.c
+        libs/minilibx/linux/mlx_set_font.c
+        libs/minilibx/linux/mlx_new_image.c
+        libs/minilibx/linux/mlx_get_data_addr.c
+        libs/minilibx/linux/mlx_put_image_to_window.c
+        libs/minilibx/linux/mlx_get_color_value.c
+        libs/minilibx/linux/mlx_clear_window.c
+        libs/minilibx/linux/mlx_xpm.c
+        libs/minilibx/linux/mlx_int_str_to_wordtab.c
+        libs/minilibx/linux/mlx_destroy_window.c
+        libs/minilibx/linux/mlx_int_param_event.c
+        libs/minilibx/linux/mlx_int_set_win_event_mask.c
+        libs/minilibx/linux/mlx_hook.c
+        libs/minilibx/linux/mlx_rgb.c
+        libs/minilibx/linux/mlx_destroy_image.c
+        libs/minilibx/linux/mlx_mouse.c
+        libs/minilibx/linux/mlx_screen_size.c
+        libs/minilibx/linux/mlx_destroy_display.c
+        )
+endif()
+
+
 
 add_executable(so_long
         main.c
@@ -75,4 +113,9 @@ add_executable(so_long
         )
 
 target_link_libraries(so_long ft)
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 target_link_libraries(so_long mlx "-framework OpenGL" "-framework AppKit")
+else ()
+target_link_libraries(so_long mlx "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
+endif()

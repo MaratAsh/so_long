@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 19:02:02 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/20 10:52:15 by alcierra         ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "mlx_int.h"
 
-void	ft_error(char *msg)
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	ssize_t	c;
-	c = write(2, msg, ft_strlen(msg));
-	(void) c;
-	exit(1);
+	XCloseDisplay(xvar->display);
 }
