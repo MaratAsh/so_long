@@ -6,7 +6,7 @@
 #    By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/04 17:10:25 by alcierra          #+#    #+#              #
-#    Updated: 2022/05/20 12:11:06 by alcierra         ###   ########.fr        #
+#    Updated: 2022/05/20 15:00:53 by alcierra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ MLX_INCL	=	./libs/minilibx/libmlx.a
 LIB_MAKE	=	make -C $(dir $(LIB_INCL))
 MLX_MAKE	=	make -C $(dir $(MLX_INCL))
 
-ifeq ($(OS),Darwin)
+ifeq (`$(uname)`,Darwin)
 	#MacOS stuff
 	COMPILLER = ${CC} objectfiles -framework OpenGL -framework AppKit -I. $(LIB_INCL) -I. $(MLX_INCL)
 	COMPILLERS = ${CC} ${FLAGS} -Imlx

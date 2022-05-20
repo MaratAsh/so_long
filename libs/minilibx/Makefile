@@ -1,6 +1,6 @@
 NAME	=	libmlx.a
 
-ifeq ($(OS),Darwin)
+ifeq (`$(uname)`,Darwin)
 	#MacOS stuff
 	MAKEDIR = ./macos/
 else
