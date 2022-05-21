@@ -40,6 +40,21 @@ static void	command_processing_move_post(t_game *game, unsigned x, unsigned y)
 			prev = list;
 			list = list->next;
 		}
+		if (!game->collectibles)
+		{
+			list = game->exits;
+			while (list)
+			{
+				((t_object *) list->content)->state = EXIT_TRANSITION;
+				((t_object *) list->content)->texture = game->textures.exits_transition;
+				list = list->next;
+			}
+		}
+	}
+	else if (game->map[y][x] == 'E')
+	{
+		mlx_key_hook(game->mlx_win, NULL, game);
+		mlx_loop_hook(game->mlx, moment_processing_over, game);
 	}
 }
 
@@ -109,6 +124,9 @@ void	command_processing_move(t_game *game, t_player *player, int move)
 				t = t->next;
 			i++;
 		}
+		command_processing_move_post(game, to_x, to_y);
+		game->moves++;
+		if (game->after_move)
+			game->after_move(game, game->moves);
 	}
-	command_processing_move_post(game, to_x, to_y);
 }

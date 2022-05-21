@@ -16,7 +16,7 @@ t_object	*create_collectible(unsigned x, unsigned y)
 {
 	t_object	*ptr;
 
-	ptr = ft_calloc(sizeof( t_object), 1);
+	ptr = ft_calloc(sizeof(t_object), 1);
 	ptr->map_x = x;
 	ptr->map_y = y;
 	ptr->change_moment = 1;
@@ -28,11 +28,12 @@ t_object	*create_exit(unsigned x, unsigned y)
 {
 	t_object	*ptr;
 
-	ptr = ft_calloc(sizeof( t_object), 1);
+	ptr = ft_calloc(sizeof(t_object), 1);
 	ptr->map_x = x;
 	ptr->map_y = y;
 	ptr->change_moment = 1;
 	ptr->change_rate = 5 + rand() % 5;
+	ptr->state = EXIT_CLOSE;
 	return (ptr);
 }
 

@@ -45,6 +45,7 @@ typedef struct s_textures
 	t_list 				*players_up;
 	t_list 				*players_down;
 	t_list 				*exits_open;
+	t_list 				*exits_transition;
 	t_list 				*exits_close;
 	t_texture			wall_all;
 	t_texture			wall_tr;
@@ -95,7 +96,9 @@ typedef struct s_collectible
 	unsigned int 		map_y;
 	unsigned int 		change_moment;
 	unsigned int 		change_rate;
+	int 				state;
 	t_list 				*texture;
+	t_list 				*textures_transition;
 }				t_object;
 
 typedef struct s_map
@@ -144,6 +147,10 @@ enum
 	CHARACTER_RIGHT = 2048,
 	CHARACTER_UP = 4096,
 	CHARACTER_DOWN = 8192,
+
+	EXIT_CLOSE = 1,
+	EXIT_OPEN = 2,
+	EXIT_TRANSITION = 0,
 };
 
 enum
@@ -180,6 +187,7 @@ void	ft_map_check(t_game *game);
 void	ft_draw_all(t_game *game);
 int		command_processing(int keycode, t_game *game);
 int		moment_processing(t_game *game);
+int		moment_processing_over(t_game *game);
 
 
 void	draw(t_game *game, void *img, unsigned x, unsigned y);
@@ -188,6 +196,7 @@ void	draw_map_collectible(t_game *game, t_object *c);
 void	draw_map_player(t_game *game, t_player *p);
 void	draw_map_player_state(t_game *game, t_player *p);
 void	draw_map_wall(t_game *game, unsigned map_x, unsigned map_y);
+void	draw_map_exit(t_game *game, t_object *o);
 
 t_state	*create_state(unsigned x, unsigned y, t_texture *texture);
 
@@ -195,5 +204,8 @@ void	command_processing_move(t_game *game, t_player *player, int move);
 
 // game_conditions.c
 int 	is_player_can_move_to(t_game *game, unsigned int x, unsigned int y);
+
+void	game_after_move(struct s_map *g, unsigned count);
+void	game_after_move_graph(struct s_map *g, unsigned count);
 
 #endif

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 void	ft_free_map(t_game *map)
 {
@@ -52,9 +51,11 @@ int	main(int argc, char **argv)
 	game.mlx = mlx_init();
 	load_textures(&game);
 	set_textures(&game);
+	game.after_move = game_after_move;
 	game.mlx_win = mlx_new_window(game.mlx, game.width * 100,
 								  game.height * 100, "So Long");
 	mlx_key_hook(game.mlx_win, command_processing, &game);
+	//mlx_hook(game.mlx_win, 2, 0, command_processing, &game);
 	mlx_hook(game.mlx_win, 17, 0, window_close, &game);
 	ft_draw_all(&game);
 	mlx_loop_hook(game.mlx, moment_processing, &game);

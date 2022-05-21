@@ -21,6 +21,7 @@ SRCS	=	ft_game_set.c			ft_map_check.c			ft_error.c		\
 			command_processing.c	moment_processing.c		set_textures.c	\
 			draw.c					command_processing_move.c				\
 			create_state.c			game_conditions.c		draw_2.c		\
+			game_after_move.c		moment_processing_over.c				\
 
 
 OBJS	=	${SRCS:.c=.o}

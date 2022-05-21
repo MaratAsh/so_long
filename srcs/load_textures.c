@@ -75,6 +75,8 @@ static void	load_textures_2(t_game *game)
 		"./textures/exit/close/");
 	load_obj_textures(game, &(game->textures.exits_open),
 		"./textures/exit/open/");
+	load_obj_textures(game, &(game->textures.exits_transition),
+		"./textures/exit/trans/");
 }
 
 void	load_textures(t_game *game)

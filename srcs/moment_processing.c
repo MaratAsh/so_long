@@ -1,11 +1,18 @@
-//
-// Created by Altagracia Cierra on 5/13/22.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moment_processing.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/13 00:00:00 by alcierra          #+#    #+#             */
+/*   Updated: 2022/05/18 24:00:00 by alcierra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../so_long.h"
 
-
-#include "../so_long.h"
 
 void	process_animation_collectible(t_game *game, unsigned moment_id)
 {
@@ -66,6 +73,53 @@ void	process_animation_player(t_game *game, t_player *p, unsigned moment_id)
 		}
 }
 
+void	process_animation_exit(t_game *game, unsigned moment_id)
+{
+	t_list			*list;
+	t_object		*o;
+
+	(void) moment_id;
+	list = game->exits;
+	while (list)
+	{
+		o = (t_object *) list->content;
+		if (o->state == EXIT_CLOSE || o->state == EXIT_OPEN)
+		{
+			if (o->change_moment == moment_id)
+			{
+				draw_map_background(o->map_x, o->map_y, game);
+				if (o->texture->next)
+					o->texture = o->texture->next;
+				else if (o->state == EXIT_CLOSE)
+					o->texture = game->textures.exits_close;
+				else
+					o->texture = game->textures.exits_open;
+				draw_map_exit(game, o);
+				o->change_moment += o->change_rate;
+			}
+		}
+		else if (o->state == EXIT_TRANSITION)
+		{
+			if (o->change_moment == moment_id)
+			{
+				draw_map_background(o->map_x, o->map_y, game);
+				draw_map_exit(game, o);
+				o->texture = o->texture->next;
+				if (!o->texture)
+				{
+					o->state = EXIT_OPEN;
+					o->texture = game->textures.exits_open;
+
+				}
+				o->change_moment += o->change_rate;
+			}
+
+		}
+		list = list->next;
+	}
+
+}
+
 int	moment_processing(t_game *game)
 {
 	static unsigned	moment_id;
@@ -74,6 +128,7 @@ int	moment_processing(t_game *game)
 		ft_draw_all(game);
 	process_animation_collectible(game, moment_id);
 	process_animation_player(game, game->current_player, moment_id);
+	process_animation_exit(game, moment_id);
 	moment_id++;
 	return (0);
 }

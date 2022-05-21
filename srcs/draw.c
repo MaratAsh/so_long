@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/13 00:00:00 by alcierra          #+#    #+#             */
+/*   Updated: 2022/05/18 24:00:00 by alcierra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../so_long.h"
 
@@ -38,4 +49,13 @@ void	draw_map_player_state(t_game *game, t_player *p)
 	s = (t_state *) p->states->content;
 	t = (t_texture *) s->texture;
 	draw(game, t->image, s->x, s->y);
+}
+
+void	draw_map_exit(t_game *game, t_object *o)
+{
+	t_texture		*t;
+
+	t = (t_texture *) o->texture->content;
+	draw(game, t->image, o->map_x * game->part_width,
+		 o->map_y * game->part_height);
 }

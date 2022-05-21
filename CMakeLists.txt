@@ -110,7 +110,7 @@ add_executable(so_long
         srcs/ft_game_set.c srcs/ft_parse_map_file.c srcs/ft_map_check.c srcs/ft_error.c srcs/ft_draw_all.c
         srcs/load_textures.c srcs/command_processing.c srcs/moment_processing.c
         srcs/set_textures.c srcs/draw.c srcs/command_processing_move.c srcs/create_state.c srcs/game_conditions.c
-        srcs/draw_2.c)
+        srcs/draw_2.c srcs/moment_processing_over.c srcs/game_after_move.c)
 
 target_link_libraries(so_long ft)
 

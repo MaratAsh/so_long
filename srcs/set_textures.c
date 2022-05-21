@@ -38,4 +38,13 @@ void	set_textures(t_game *game)
 		}
 		list = list->next;
 	}
+	list = game->exits;
+	while (list)
+	{
+		if (list->content)
+		{
+			((t_object *) list->content)->texture = game->textures.exits_close;
+		}
+		list = list->next;
+	}
 }
