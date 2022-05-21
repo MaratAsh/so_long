@@ -12,22 +12,38 @@
 
 #include "../so_long.h"
 
+static t_texture	*choose_wall_texture_2(t_game *game, int sides)
+{
+	t_texture	*t;
+
+	if (sides == WALL_RL)
+		t = &(game->textures.wall_rl);
+	else if (sides == WALL_TB)
+		t = &(game->textures.wall_tb);
+	else if (sides == WALL_TRL)
+		t = &(game->textures.wall_trl);
+	else if (sides == WALL_TBL)
+		t = &(game->textures.wall_tbl);
+	else
+		t = &(game->textures.wall_all);
+	return (t);
+}
+
 t_texture	*choose_wall_texture(t_game *game, int sides)
 {
 	t_texture	*t;
 
-	t = &(game->textures.wall_all);
 	if (sides == WALL_NO)
 		t = &(game->textures.wall_no);
 	else if (sides == WALL_TR)
 		t = &(game->textures.wall_tr);
 	else if (sides == WALL_BL)
 		t = &(game->textures.wall_bl);
-	else if (sides == WALL_RBL || sides == WALL_RL)
+	else if (sides == WALL_RBL)
 		t = &(game->textures.wall_rbl);
 	else if (sides == WALL_RB)
 		t = &(game->textures.wall_rb);
-	else if (sides == WALL_TRB || sides == WALL_TB)
+	else if (sides == WALL_TRB)
 		t = &(game->textures.wall_trb);
 	else if (sides == WALL_TL)
 		t = &(game->textures.wall_tl);
@@ -35,8 +51,10 @@ t_texture	*choose_wall_texture(t_game *game, int sides)
 		t = &(game->textures.wall_r);
 	else if (sides == WALL_LEFT)
 		t = &(game->textures.wall_l);
-	else if (sides == WALL_TRL || sides == WALL_RL)
-		t = &(game->textures.wall_trl);
+	else if (sides == WALL_TOP)
+		t = &(game->textures.wall_t);
+	else
+		t = choose_wall_texture_2(game, sides);
 	return (t);
 }
 

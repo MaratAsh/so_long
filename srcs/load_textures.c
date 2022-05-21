@@ -84,7 +84,10 @@ void	load_textures(t_game *game)
 	load_texture(game, &(game->textures.wall_all), "./textures/wall/all.xpm");
 	load_texture(game, &(game->textures.wall_tr), "./textures/wall/tr.xpm");
 	load_texture(game, &(game->textures.wall_trb), "./textures/wall/trb.xpm");
+	load_texture(game, &(game->textures.wall_tbl), "./textures/wall/tbl.xpm");
 	load_texture(game, &(game->textures.wall_trl), "./textures/wall/trl.xpm");
+	load_texture(game, &(game->textures.wall_rl), "./textures/wall/rl.xpm");
+	load_texture(game, &(game->textures.wall_tb), "./textures/wall/tb.xpm");
 	load_texture(game, &(game->textures.wall_tl),
 		"./textures/wall/tl.xpm");
 	load_texture(game, &(game->textures.wall_rb), "./textures/wall/rb.xpm");
@@ -92,6 +95,7 @@ void	load_textures(t_game *game)
 	load_texture(game, &(game->textures.wall_bl), "./textures/wall/bl.xpm");
 	load_texture(game, &(game->textures.wall_r), "./textures/wall/r.xpm");
 	load_texture(game, &(game->textures.wall_l), "./textures/wall/l.xpm");
+	load_texture(game, &(game->textures.wall_t), "./textures/wall/t.xpm");
 	load_texture(game, &(game->textures.wall_no), "./textures/wall/no.xpm");
 	load_texture(game, &(game->textures.unknown), "./textures/unknown.xpm");
 	load_textures_2(game);
