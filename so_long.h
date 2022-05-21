@@ -61,6 +61,7 @@ typedef struct s_textures
 	t_texture			wall_r;
 	t_texture			wall_t;
 	t_texture			wall_l;
+	t_texture			wall_b;
 	t_texture			wall_no;
 	void	*exit_close;
 	void	*exit_open;

@@ -90,6 +90,7 @@ void	load_textures(t_game *game)
 	load_texture(game, &(game->textures.wall_trl), "./textures/wall/trl.xpm");
 	load_texture(game, &(game->textures.wall_rl), "./textures/wall/rl.xpm");
 	load_texture(game, &(game->textures.wall_tb), "./textures/wall/tb.xpm");
+	load_texture(game, &(game->textures.wall_b), "./textures/wall/b.xpm");
 	load_texture(game, &(game->textures.wall_tl),
 		"./textures/wall/tl.xpm");
 	load_texture(game, &(game->textures.wall_rb), "./textures/wall/rb.xpm");

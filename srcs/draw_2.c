@@ -24,6 +24,8 @@ static t_texture	*choose_wall_texture_2(t_game *game, int sides)
 		t = &(game->textures.wall_trl);
 	else if (sides == WALL_TBL)
 		t = &(game->textures.wall_tbl);
+	else if (sides == WALL_BOTTOM)
+		t = &(game->textures.wall_b);
 	else
 		t = &(game->textures.wall_all);
 	return (t);
