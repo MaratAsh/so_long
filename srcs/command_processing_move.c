@@ -1,6 +1,14 @@
-//
-// Created by Altagracia Cierra on 5/19/22.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moment_processing_move.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/19 00:00:00 by alcierra          #+#    #+#             */
+/*   Updated: 2022/05/19 24:00:00 by alcierra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 
 #include "../so_long.h"
@@ -79,11 +87,20 @@ void	command_processing_move(t_game *game, t_player *player, int move)
 		count = ft_lstsize(t);
 		while (i < count)
 		{
+			unsigned actual_x, actual_y;
+			actual_x = to_x * game->part_width;
+			actual_y = to_y * game->part_height;
+			if (move & CHARACTER_LEFT)
+				actual_x += game->part_width / (count - i);
+			if (move & CHARACTER_RIGHT)
+				actual_x -= game->part_width / (count - i);
+			if (move & CHARACTER_UP)
+				actual_y += game->part_width / (count - i);
+			else if (move & CHARACTER_DOWN)
+				actual_y -= game->part_width / (count - i);
 			state = create_state(
-					to_x * game->part_width + (move & CHARACTER_LEFT || move & CHARACTER_RIGHT)
-											   * game->part_width / (count - i),
-					to_y * game->part_height + (move & CHARACTER_DOWN || move & CHARACTER_UP )
-												* game->part_width / (count - i),
+					actual_x,
+					actual_y,
 					(t_texture *) t->content);
 			state->texture = (t_texture *) t->content;
 			list = ft_lstnew(state);

@@ -38,8 +38,6 @@ void	ft_check_symbol(t_game *map, unsigned int i, unsigned int j, int *params)
 	{
 		params[4]++;
 		map->map[i][j] = '0';
-		map->character_x = i;
-		map->character_y = j;
 	}
 }
 

@@ -47,7 +47,17 @@ typedef struct s_textures
 	t_list 				*exits_open;
 	t_list 				*exits_close;
 	void	*collectible;
-	t_texture			border_all;
+	t_texture			wall_all;
+	t_texture			wall_tr;
+	t_texture			wall_trb;
+	t_texture			wall_trl;
+	t_texture			wall_tl;
+	t_texture			wall_rb;
+	t_texture			wall_rbl;
+	t_texture			wall_bl;
+	t_texture			wall_r;
+	t_texture			wall_l;
+	t_texture			wall_no;
 	void	*exit_close;
 	void	*exit_open;
 	struct s_texture	unknown;
@@ -91,11 +101,10 @@ typedef struct s_map
 	char			*str;
 	unsigned int	width;
 	unsigned int	height;
+	unsigned int	moves;
 	unsigned int	draw_rate;
 	unsigned int	part_width;
 	unsigned int	part_height;
-	unsigned int	character_x;
-	unsigned int	character_y;
 	void			*mlx;
 	void			*mlx_win;
 	t_list 			*render;
@@ -105,6 +114,7 @@ typedef struct s_map
 	t_player		*current_player;
 	t_list 			*exits;
 	t_textures		textures;
+	void			(*after_move)(struct s_map *g, unsigned count);
 }				t_game;
 
 enum
@@ -133,6 +143,30 @@ enum
 	CHARACTER_DOWN = 8192,
 };
 
+enum
+{
+	WALL_ALL	= 0b1111,
+
+	WALL_TOP	= 0b0001,
+	WALL_RIGHT	= 0b0010,
+	WALL_BOTTOM	= 0b0100,
+	WALL_LEFT	= 0b1000,
+
+	WALL_TRB	= 0b0111,
+	WALL_TRL	= 0b1011,
+	WALL_TBL	= 0b1101,
+	WALL_RBL	= 0b1110,
+
+	WALL_TR		= 0b0011,
+	WALL_TB		= 0b0101,
+	WALL_TL		= 0b1001,
+	WALL_RB		= 0b0110,
+	WALL_RL		= 0b1010,
+	WALL_BL		= 0b1100,
+
+	WALL_NO		= 0b0000,
+};
+
 int		ft_parse_map_file(char *map_file, t_game *game);
 void	ft_game_set(t_game *game);
 void	load_textures(t_game *game);
@@ -150,6 +184,7 @@ void	draw_map_background(unsigned x, unsigned y, t_game *game);
 void	draw_map_collectible(t_game *game, t_object *c);
 void	draw_map_player(t_game *game, t_player *p);
 void	draw_map_player_state(t_game *game, t_player *p);
+void	draw_map_wall(t_game *game, unsigned map_x, unsigned map_y);
 
 t_state	*create_state(unsigned x, unsigned y, t_texture *texture);
 
