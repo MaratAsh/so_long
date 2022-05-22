@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+         #
+#    By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/04 17:10:25 by alcierra          #+#    #+#              #
-#    Updated: 2022/05/20 15:10:28 by alcierra         ###   ########.fr        #
+#    Updated: 2022/05/22 16:23:26 by alcierra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	so_long
-HEADER	=	so_long.h
+HEADER	=	so_long.h	so_long_platform.h
 
 FLDR_S	=	srcs/
 FLDR_O	=	objs/
@@ -39,11 +39,11 @@ MLX_MAKE	=	make -C $(dir $(MLX_INCL))
 ifeq ($(shell uname),Darwin)
 	#MacOS stuff
 	COMPILLER = ${CC} objectfiles -framework OpenGL -framework AppKit -I. $(LIB_INCL) -I. $(MLX_INCL)
-	COMPILLERS = ${CC} ${FLAGS} -Imlx
+	COMPILLERS = ${CC} -D Darwin=1 ${FLAGS} -Imlx
 else
 	#Linux stuff
 	COMPILLER = $(CC) objectfiles -L./libs/minilibx -L./libs/libft -L/usr/lib -lmlx -lft -lXext -lX11 -lm -lz
-	COMPILLERS = $(CC) ${FLAGS} -lmlx -lft -I/usr/include -Llibs/minilibx -Llibs/libft -O3
+	COMPILLERS = $(CC) -D Linux=1 ${FLAGS} -lmlx -lft -I/usr/include -Llibs/minilibx -Llibs/libft -O3
 endif
 
 all: lib $(FLDR_O) $(NAME)

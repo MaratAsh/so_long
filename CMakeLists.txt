@@ -115,7 +115,7 @@ add_executable(so_long
 target_link_libraries(so_long ft)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-target_link_libraries(so_long mlx "-framework OpenGL" "-framework AppKit")
+target_link_libraries(so_long mlx "-D Darwin=1" "-framework OpenGL" "-framework AppKit")
 else ()
-target_link_libraries(so_long mlx "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
+target_link_libraries(so_long mlx "-D Linux=1" "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
 endif()
