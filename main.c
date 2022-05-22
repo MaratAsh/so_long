@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 	if (ft_parse_map_file(argv[1], &game))
 		ft_error("Error: File: read error\n");
 	ft_game_set(&game);
+	ft_map_check(&game);
 	main_norm(game);
 	return (0);
 }
