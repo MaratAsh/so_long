@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru>   +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:35:32 by alcierra          #+#    #+#             */
-/*   Updated: 2022/04/12 16:06:34 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:07:15 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,21 @@ void	ft_free_map(t_game *map)
 		free(map->map);
 }
 
-int window_close(t_game *params)
+static void	main_norm(t_game game)
 {
-	(void) params;
-	exit(0);
+	game.mlx = mlx_init();
+	load_textures(&game);
+	set_textures(&game);
+	game.after_move = game_after_move;
+	game.mlx_win = mlx_new_window(game.mlx,
+			game.width * 100 + game.padding_rl * 2,
+			game.height * 100 + game.padding_tb * 2, "So Long");
+	mlx_key_hook(game.mlx_win, command_processing, &game);
+	mlx_hook(game.mlx_win, 17, 0, window_close, &game);
+	ft_draw_all(&game);
+	mlx_loop_hook(game.mlx, moment_processing, &game);
+	mlx_loop(game.mlx);
+	ft_free_map(&game);
 }
 
 int	main(int argc, char **argv)
@@ -47,19 +58,6 @@ int	main(int argc, char **argv)
 	if (ft_parse_map_file(argv[1], &game))
 		ft_error("Error: File: read error\n");
 	ft_game_set(&game);
-
-	game.mlx = mlx_init();
-	load_textures(&game);
-	set_textures(&game);
-	game.after_move = game_after_move;
-	game.mlx_win = mlx_new_window(game.mlx, game.width * 100,
-								  game.height * 100, "So Long");
-	mlx_key_hook(game.mlx_win, command_processing, &game);
-	//mlx_hook(game.mlx_win, 2, 0, command_processing, &game);
-	mlx_hook(game.mlx_win, 17, 0, window_close, &game);
-	ft_draw_all(&game);
-	mlx_loop_hook(game.mlx, moment_processing, &game);
-	mlx_loop(game.mlx);
-	ft_free_map(&game);
+	main_norm(game);
 	return (0);
 }

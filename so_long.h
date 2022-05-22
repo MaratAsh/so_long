@@ -6,7 +6,7 @@
 /*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:35:32 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/22 16:38:41 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:52:29 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,8 @@ int		is_player_can_move_to(t_game *game, unsigned int x, unsigned int y);
 
 void	game_after_move(struct s_map *g, unsigned int count);
 void	game_after_move_graph(t_game *g, unsigned int count);
+
+// window.c
+int		window_close(t_game *params);
 
 #endif

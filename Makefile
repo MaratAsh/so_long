@@ -6,7 +6,7 @@
 #    By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/04 17:10:25 by alcierra          #+#    #+#              #
-#    Updated: 2022/05/22 16:23:26 by alcierra         ###   ########.fr        #
+#    Updated: 2022/05/22 16:54:01 by alcierra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	ft_game_set.c			ft_map_check.c			ft_error.c		\
 			draw.c					command_processing_move.c				\
 			create_state.c			game_conditions.c		draw_2.c		\
 			game_after_move.c		moment_processing_over.c				\
+			window.c
 
 
 OBJS	=	${SRCS:.c=.o}
