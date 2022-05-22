@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_game_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:35:32 by alcierra          #+#    #+#             */
-/*   Updated: 2022/04/12 21:25:51 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:15:55 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	ft_game_set(t_game *game)
 	game->part_height = 100;
 	game->part_width = 100;
 	game->draw_rate = 1000;
+	game->padding_tb = 10;
+	game->padding_rl = 10;
 	game->moves = 0;
 	game->width = ft_strlen(game->map[0]);
 	i = 0;

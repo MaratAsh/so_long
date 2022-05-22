@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moment_processing_move.c                           :+:      :+:    :+:   */
+/*   command_processing_move.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 00:00:00 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/19 24:00:00 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:28:13 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	command_processing_move(t_game *game, t_player *player, int move)
 		while (i < count)
 		{
 			unsigned actual_x, actual_y;
-			actual_x = to_x * game->part_width;
-			actual_y = to_y * game->part_height;
+			actual_x = to_x * game->part_width + game->padding_rl;
+			actual_y = to_y * game->part_height + game->padding_rl;
 			if (move & CHARACTER_LEFT)
 				actual_x += game->part_width / (count - i);
 			if (move & CHARACTER_RIGHT)

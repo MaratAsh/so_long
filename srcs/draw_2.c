@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 00:00:00 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/20 20:02:43 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:12:23 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	draw_map_wall(t_game *game, unsigned map_x, unsigned map_y)
 	if (!t)
 		t = &(game->textures.wall_all);
 	if (t)
-		draw(game, t->image, map_x * game->part_width,
-			map_y * game->part_height);
+		draw(game, t->image,
+			map_x * game->part_width + game->padding_rl,
+			map_y * game->part_height + game->padding_tb);
 }

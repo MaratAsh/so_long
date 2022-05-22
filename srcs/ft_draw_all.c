@@ -6,7 +6,7 @@
 /*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 19:02:02 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/21 09:53:59 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:21:04 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_draw_all(t_game *game)
 		{
 			img = game->textures.background.image;
 			mlx_put_image_to_window(game->mlx, game->mlx_win, img,
-				game->part_width * j, game->part_height * i);
+				game->part_width * j + game->padding_rl,
+				game->part_height * i + game->padding_tb);
 			img = NULL;
 			if (game->map[i][j] == '1')
 				draw_map_wall(game, j, i);
@@ -57,7 +58,8 @@ void	ft_draw_all(t_game *game)
 				img = NULL;
 			if (img)
 				mlx_put_image_to_window(game->mlx, game->mlx_win, img,
-					game->part_width * j, game->part_height * i);
+					game->part_width * j + game->padding_rl,
+					game->part_height * i + game->padding_tb);
 			j++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 00:00:00 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/18 24:00:00 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:26:22 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	draw(t_game *game, void *img, unsigned x, unsigned y)
 
 void	draw_map_background(unsigned x, unsigned y, t_game *game)
 {
-	draw(game, game->textures.background.image, x * game->part_width,
-		 y * game->part_height);
+	draw(game, game->textures.background.image,
+		x * game->part_width + game->padding_rl,
+		y * game->part_height + game->padding_tb);
 }
 
 void	draw_map_collectible(t_game *game, t_object *c)
@@ -28,8 +29,9 @@ void	draw_map_collectible(t_game *game, t_object *c)
 	t_texture		*t;
 
 	t = (t_texture *) c->texture->content;
-	draw(game, t->image, c->map_x * game->part_width,
-		 c->map_y * game->part_height);
+	draw(game, t->image,
+		c->map_x * game->part_width + game->padding_rl,
+		c->map_y * game->part_height + game->padding_tb);
 }
 
 void	draw_map_player(t_game *game, t_player *p)
@@ -37,8 +39,9 @@ void	draw_map_player(t_game *game, t_player *p)
 	t_texture		*t;
 
 	t = (t_texture *) p->texture->content;
-	draw(game, t->image, p->map_x * game->part_width,
-		 p->map_y * game->part_height);
+	draw(game, t->image,
+		p->map_x * game->part_width + game->padding_rl,
+		p->map_y * game->part_height + game->padding_tb);
 }
 
 void	draw_map_player_state(t_game *game, t_player *p)
@@ -56,6 +59,7 @@ void	draw_map_exit(t_game *game, t_object *o)
 	t_texture		*t;
 
 	t = (t_texture *) o->texture->content;
-	draw(game, t->image, o->map_x * game->part_width,
-		 o->map_y * game->part_height);
+	draw(game, t->image,
+		o->map_x * game->part_width + game->padding_rl,
+		o->map_y * game->part_height + game->padding_tb);
 }
