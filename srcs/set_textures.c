@@ -3,19 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   set_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:35:32 by alcierra          #+#    #+#             */
-/*   Updated: 2022/04/12 21:25:51 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:28:34 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+static void	set_textures_players(t_game *game)
+{
+	t_player	*p;
+	t_list		*list;
+
+	list = game->players;
+	while (list)
+	{
+		if (list->content)
+		{
+			p = (t_player *) list->content;
+			p->texture = game->textures.players;
+		}
+		list = list->next;
+	}
+}
+
+static void	set_textures_exits(t_game *game)
+{
+	t_list	*list;
+
+	list = game->exits;
+	while (list)
+	{
+		if (list->content)
+		{
+			((t_object *) list->content)->texture = game->textures.exits_close;
+		}
+		list = list->next;
+	}
+}
+
 void	set_textures(t_game *game)
 {
-	t_object	*collectible;
-	t_player		*p;
+	t_object		*collectible;
 	t_list			*list;
 
 	list = game->collectibles;
@@ -28,23 +59,6 @@ void	set_textures(t_game *game)
 		}
 		list = list->next;
 	}
-	list = game->players;
-	while (list)
-	{
-		if (list->content)
-		{
-			p = (t_player *) list->content;
-			p->texture = game->textures.players;
-		}
-		list = list->next;
-	}
-	list = game->exits;
-	while (list)
-	{
-		if (list->content)
-		{
-			((t_object *) list->content)->texture = game->textures.exits_close;
-		}
-		list = list->next;
-	}
+	set_textures_players(game);
+	set_textures_exits(game);
 }

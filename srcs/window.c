@@ -6,7 +6,7 @@
 /*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 16:51:06 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/22 16:51:54 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:21:39 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,3 @@ int	window_close(t_game *params)
 	(void) params;
 	exit(0);
 }
-

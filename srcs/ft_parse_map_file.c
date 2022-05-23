@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_map_file.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:35:32 by alcierra          #+#    #+#             */
-/*   Updated: 2022/04/12 21:25:51 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:19:34 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
 
 char	*ft_get_content(int fd)
 {
@@ -40,8 +39,7 @@ char	*ft_get_content(int fd)
 	return (str);
 }
 
-
-int		ft_parse_map_file(char *map_file, t_game *game)
+int	ft_parse_map_file(char *map_file, t_game *game)
 {
 	int	fd;
 

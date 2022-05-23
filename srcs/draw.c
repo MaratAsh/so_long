@@ -6,7 +6,7 @@
 /*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 00:00:00 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/22 11:26:22 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:22:45 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,4 @@ void	draw_map_player_state(t_game *game, t_player *p)
 	s = (t_state *) p->states->content;
 	t = (t_texture *) s->texture;
 	draw(game, t->image, s->x, s->y);
-}
-
-void	draw_map_exit(t_game *game, t_object *o)
-{
-	t_texture		*t;
-
-	t = (t_texture *) o->texture->content;
-	draw(game, t->image,
-		o->map_x * game->part_width + game->padding_rl,
-		o->map_y * game->part_height + game->padding_tb);
 }

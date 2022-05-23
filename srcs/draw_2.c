@@ -6,7 +6,7 @@
 /*   By: alcierra <alcierra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 00:00:00 by alcierra          #+#    #+#             */
-/*   Updated: 2022/05/22 17:12:23 by alcierra         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:22:57 by alcierra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,14 @@ void	draw_map_wall(t_game *game, unsigned map_x, unsigned map_y)
 		draw(game, t->image,
 			map_x * game->part_width + game->padding_rl,
 			map_y * game->part_height + game->padding_tb);
+}
+
+void	draw_map_exit(t_game *game, t_object *o)
+{
+	t_texture		*t;
+
+	t = (t_texture *) o->texture->content;
+	draw(game, t->image,
+		o->map_x * game->part_width + game->padding_rl,
+		o->map_y * game->part_height + game->padding_tb);
 }
