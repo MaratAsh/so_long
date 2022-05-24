@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 NAME	=	so_long
+NAME_B	=	so_long_bonus
 HEADER	=	so_long.h	so_long_platform.h
 
 FLDR_S	=	srcs/
@@ -23,12 +24,16 @@ SRCS	=	ft_game_set.c			ft_map_check.c			ft_error.c		\
 			create_state.c			game_conditions.c		draw_2.c		\
 			game_after_move.c		moment_processing_over.c				\
 			window.c
-
+SRCS_B	=	map_check_bonus.c
 
 OBJS	=	${SRCS:.c=.o}
+OBJS_B	=	${SRCS_B:.c=.o}
 
 SRCS_WD	=	$(addprefix ${FLDR_S},${SRCS})
 OBJS_WD	=	$(addprefix ${FLDR_O},${OBJS})
+
+SRCS_B_WD	=	$(addprefix ${FLDR_S},${SRCS_B})
+OBJS_B_WD	=	$(addprefix ${FLDR_O},${OBJS_B})
 
 FLAGS	=	-Wall -Wextra -Werror
 
@@ -65,6 +70,9 @@ $(NAME): ${FLDR_O}main.o ${OBJS_WD} ${HEADER}
 		$(COMPILLER:objectfiles=$(OBJS_WD) ${FLDR_O}main.o) -o $(NAME)
 
 
+$(NAME_B): ${FLDR_O}main_bonus.o ${OBJS_WD} ${OBJS_B_WD} ${HEADER}
+		$(COMPILLER:objectfiles=$(OBJS_WD) $(OBJS_B_WD) ${FLDR_O}main_bonus.o) -o $(NAME_B)
+
 clean:
 		${LIB_MAKE} clean
 		${MLX_MAKE} clean
@@ -73,7 +81,7 @@ clean:
 fclean:
 		${LIB_MAKE} fclean
 		${MLX_MAKE} clean
-		rm -rf ${FLDR_O}main.o ${OBJS_WD} ${OBJS_B_WD} ${NAME}
+		rm -rf ${FLDR_O}main.o ${OBJS_WD} ${OBJS_B_WD} ${NAME} ${NAME_B}
 
 ${FLDR_O}%.o : ${FLDR_S}%.c ${HEADER}
 		$(COMPILLERS) -c $< -o $@
@@ -83,8 +91,7 @@ ${FLDR_O}%.o : %.c ${HEADER}
 
 re: fclean all
 
-bonus: lib main-bonus.o ${OBJS_WD} ${HEADER}
-		@make OBJS_WD="$(OBJS_B_WD)" all
+bonus: lib $(FLDR_O) $(NAME_B)
 
 .PHONY: all clean fclean re	bonus
 
