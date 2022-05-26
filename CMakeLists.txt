@@ -113,10 +113,23 @@ add_executable(so_long
         srcs/draw_2.c srcs/moment_processing_over.c srcs/game_after_move.c srcs/window.c
         )
 
+add_executable(so_long_bonus
+        main_bonus.c
+        srcs/ft_game_set.c srcs/ft_parse_map_file.c srcs/ft_map_check.c srcs/ft_error.c srcs/ft_draw_all.c
+        srcs/load_textures.c srcs/command_processing.c srcs/moment_processing.c
+        srcs/set_textures.c srcs/draw.c srcs/command_processing_move.c srcs/create_state.c srcs/game_conditions.c
+        srcs/draw_2.c srcs/moment_processing_over.c srcs/game_after_move.c srcs/window.c srcs/map_check_bonus.c
+        )
+
 target_link_libraries(so_long ft)
+target_link_libraries(so_long_bonus ft)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-target_link_libraries(so_long mlx "-D Darwin=1" "-framework OpenGL" "-framework AppKit")
+target_link_libraries(so_long mlx "-framework OpenGL" "-framework AppKit")
+target_link_libraries(so_long_bonus mlx "-framework OpenGL" "-framework AppKit")
+add_definitions(-DDarwin=1)
 else ()
-target_link_libraries(so_long mlx "-D Linux=1" "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
+target_link_libraries(so_long mlx "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
+target_link_libraries(so_long_bonus mlx "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
+add_definitions(-DLinux=1)
 endif()

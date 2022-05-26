@@ -44,6 +44,23 @@ static void	set_textures_exits(t_game *game)
 	}
 }
 
+static void	set_textures_enemies(t_game *game)
+{
+	t_player	*p;
+	t_list		*list;
+
+	list = game->enemies;
+	while (list)
+	{
+		if (list->content)
+		{
+			p = (t_player *) list->content;
+			p->texture = game->textures.enemies;
+		}
+		list = list->next;
+	}
+}
+
 void	set_textures(t_game *game)
 {
 	t_object		*collectible;
@@ -61,4 +78,5 @@ void	set_textures(t_game *game)
 	}
 	set_textures_players(game);
 	set_textures_exits(game);
+	set_textures_enemies(game);
 }

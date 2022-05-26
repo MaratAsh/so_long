@@ -1,9 +1,16 @@
-//
-// Created by Altagracia Cierra on 5/13/22.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_processing.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcierra <alcierra@student.21-school.ru    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/18 00:00:00 by alcierra          #+#    #+#             */
+/*   Updated: 2022/05/18 24:00:00 by alcierra         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../so_long.h"
-
 
 void	command_processing_change_player(t_game *game)
 {
@@ -17,7 +24,7 @@ void	command_processing_change_player(t_game *game)
 			if (l->next)
 			{
 				game->current_player = (t_player *) l->next->content;
-				break;
+				break ;
 			}
 			else
 				game->current_player = NULL;

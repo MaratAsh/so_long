@@ -21,10 +21,11 @@ int	moment_processing_over(t_game *game)
 	else
 		ft_draw_all(game);
 	ft_draw_all(game);
-	mlx_string_put(game->mlx, game->mlx_win,
-		game->width * game->part_width / 2,
-		game->height * game->part_height / 2,
-		0xFFFFFF, "You Won!");
+	if (game->endtext)
+		mlx_string_put(game->mlx, game->mlx_win,
+			game->width * game->part_width / 2,
+			game->height * game->part_height / 2,
+			0xFFFFFF, game->endtext);
 	if (moment > 500)
 		exit(0);
 	moment++;

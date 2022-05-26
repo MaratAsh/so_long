@@ -40,6 +40,7 @@ typedef struct s_textures
 {
 	struct s_texture	background;
 	t_list				*coins;
+	t_list				*enemies;
 	t_list				*players;
 	t_list				*players_left;
 	t_list				*players_right;
@@ -121,6 +122,7 @@ typedef struct s_map
 	t_player		*current_player;
 	t_list			*exits;
 	t_textures		textures;
+	char			*endtext;
 	void			(*after_move)(struct s_map *g, unsigned count);
 }				t_game;
 
@@ -132,6 +134,7 @@ enum
 	CHARACTER_RIGHT = 2048,
 	CHARACTER_UP = 4096,
 	CHARACTER_DOWN = 8192,
+	CHARACTER_DIED =  16384,
 	EXIT_CLOSE = 1,
 	EXIT_OPEN = 2,
 	EXIT_TRANSITION = 0,
@@ -183,6 +186,12 @@ void	command_processing_move(t_game *game, t_player *player, int move);
 
 // game_conditions.c
 int		is_player_can_move_to(t_game *game, unsigned int x, unsigned int y);
+int		game_condition_has_alive(t_game *game);
+
+void	map_check_bonus(t_game *game);
+void	ft_check_objects_requirements(t_game *game, int *params);
+
+void	ft_check_map_around_wall(t_game *map);
 
 void	game_after_move(struct s_map *g, unsigned int count);
 void	game_after_move_graph(t_game *g, unsigned int count);

@@ -46,6 +46,7 @@ t_player	*create_player(unsigned x, unsigned y)
 	ptr->map_y = y;
 	ptr->map_next_x = 0;
 	ptr->map_next_y = 0;
+	ptr->change_rate = 5;
 	ptr->state = CHARACTER_STAY;
 	return (ptr);
 }
@@ -84,6 +85,11 @@ void	ft_game_set(t_game *game)
 			{
 				list = ft_lstnew(create_exit(j, i));
 				ft_lstadd_back(&(game->exits), list);
+			}
+			else if (game->map[i][j] == 'D')
+			{
+				list = ft_lstnew(create_player(j, i));
+				ft_lstadd_back(&(game->enemies), list);
 			}
 			j++;
 		}

@@ -23,7 +23,7 @@ void	check_symbol_bonus(t_game *map, unsigned int i,
 	if (symb == NULL)
 		ft_error("Error: Map: unacceptable characters\n");
 	params[symb - str]++;
-	if (map->map[i][j] == 'P' || map->map[i][j] == 'D')
+	if (map->map[i][j] == 'P')
 		map->map[i][j] = '0';
 }
 

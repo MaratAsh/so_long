@@ -60,7 +60,7 @@ void	process_animation_player(t_game *game, t_player *p, unsigned moment_id)
 				draw_map_background(p->map_next_x, p->map_next_y, game);
 			draw_map_player_state(game, p);
 			draw_map_background(p->map_x, p->map_y, game);
-			//ft_lstdelone(p->states, NULL);
+			ft_lstdelone(p->states, NULL);
 			p->states = next_list;
 			if (!next_list)
 			{
@@ -68,7 +68,10 @@ void	process_animation_player(t_game *game, t_player *p, unsigned moment_id)
 				p->map_y = p->map_next_y;
 				p->map_next_x = 0;
 				p->map_next_y = 0;
-				p->state = CHARACTER_STAY;
+				if (p->state & CHARACTER_DIED)
+					p->state = CHARACTER_DIED;
+				else
+					p->state = CHARACTER_STAY;
 			}
 		}
 }
@@ -120,6 +123,30 @@ void	process_animation_exit(t_game *game, unsigned moment_id)
 
 }
 
+void	process_animation_enemies(t_game *game, unsigned moment_id)
+{
+	t_list		*elem;
+	t_player	*e;
+
+	elem = game->enemies;
+	while (elem)
+	{
+		e = (t_player *) elem->content;
+		if (e->change_moment == moment_id)
+		{
+			draw_map_background(e->map_x, e->map_y, game);
+			draw_map_player(game, e);
+			e->texture = e->texture->next;
+			if (!e->texture)
+			{
+				e->texture = game->textures.enemies;
+			}
+			e->change_moment += e->change_rate;
+		}
+		elem = elem->next;
+	}
+}
+
 int	moment_processing(t_game *game)
 {
 	static unsigned	moment_id;
@@ -128,6 +155,7 @@ int	moment_processing(t_game *game)
 		ft_draw_all(game);
 	process_animation_collectible(game, moment_id);
 	process_animation_player(game, game->current_player, moment_id);
+	process_animation_enemies(game, moment_id);
 	process_animation_exit(game, moment_id);
 	moment_id++;
 	return (0);

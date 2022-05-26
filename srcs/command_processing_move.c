@@ -53,8 +53,19 @@ static void	command_processing_move_post(t_game *game, unsigned x, unsigned y)
 	}
 	else if (game->map[y][x] == 'E')
 	{
+		game->endtext = "You Win!";
 		mlx_key_hook(game->mlx_win, NULL, game);
 		mlx_loop_hook(game->mlx, moment_processing_over, game);
+	}
+	else if (game->map[y][x] == 'D')
+	{
+		game->current_player->state = CHARACTER_DIED | CHARACTER_RUN;
+		if (!game_condition_has_alive(game))
+		{
+			game->endtext = "You are Lose!";
+			mlx_key_hook(game->mlx_win, NULL, game);
+			mlx_loop_hook(game->mlx, moment_processing_over, game);
+		}
 	}
 }
 
