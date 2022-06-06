@@ -68,7 +68,7 @@ static int	ft_split_inline_part(char *s, char c, char **arr_str)
 		while (s[dsp] == c && c)
 			dsp++;
 		if (!s[dsp])
-			break;
+			break ;
 		word_len = ft_size_part((char *) s + dsp, c);
 		arr_str[word_cnt] = s + dsp;
 		if (arr_str[word_cnt] == NULL)
