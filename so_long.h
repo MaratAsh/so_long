@@ -134,7 +134,7 @@ enum
 	CHARACTER_RIGHT = 2048,
 	CHARACTER_UP = 4096,
 	CHARACTER_DOWN = 8192,
-	CHARACTER_DIED =  16384,
+	CHARACTER_DIED = 16384,
 	EXIT_CLOSE = 1,
 	EXIT_OPEN = 2,
 	EXIT_TRANSITION = 0,
@@ -198,5 +198,13 @@ void	game_after_move_graph(t_game *g, unsigned int count);
 
 // window.c
 int		window_close(t_game *params);
+
+void	process_animation_player(t_game *g, t_player *p, unsigned int m);
+void	process_animation_exits(t_game *game, unsigned int moment_id);
+
+t_object	*create_collectible(unsigned int x, unsigned int y);
+t_object	*create_exit(unsigned int x, unsigned int y);
+t_player	*create_player(unsigned int x, unsigned int y);
+
 
 #endif

@@ -15,8 +15,8 @@
 void	check_symbol_bonus(t_game *map, unsigned int i,
 	unsigned int j, int *params)
 {
-	char *symb;
-	char *str;
+	char	*symb;
+	char	*str;
 
 	str = "01CEPD";
 	symb = ft_strchr(str, map->map[i][j]);

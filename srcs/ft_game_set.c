@@ -12,50 +12,37 @@
 
 #include "../so_long.h"
 
-t_object	*create_collectible(unsigned x, unsigned y)
+static void	game_set_norm(t_game *game, unsigned int i, unsigned int j)
 {
-	t_object	*ptr;
+	t_list	*list;
 
-	ptr = ft_calloc(sizeof(t_object), 1);
-	ptr->map_x = x;
-	ptr->map_y = y;
-	ptr->change_moment = 1;
-	ptr->change_rate = 5 + rand() % 5;
-	return (ptr);
-}
-
-t_object	*create_exit(unsigned x, unsigned y)
-{
-	t_object	*ptr;
-
-	ptr = ft_calloc(sizeof(t_object), 1);
-	ptr->map_x = x;
-	ptr->map_y = y;
-	ptr->change_moment = 1;
-	ptr->change_rate = 5 + rand() % 5;
-	ptr->state = EXIT_CLOSE;
-	return (ptr);
-}
-
-t_player	*create_player(unsigned x, unsigned y)
-{
-	t_player	*ptr;
-
-	ptr = ft_calloc(sizeof(t_player), 1);
-	ptr->map_x = x;
-	ptr->map_y = y;
-	ptr->map_next_x = 0;
-	ptr->map_next_y = 0;
-	ptr->change_rate = 5;
-	ptr->state = CHARACTER_STAY;
-	return (ptr);
+	if (game->map[i][j] == 'P')
+	{
+		game->map[i][j] = '0';
+		list = ft_lstnew(create_player(j, i));
+		ft_lstadd_back(&(game->players), list);
+	}
+	else if (game->map[i][j] == 'C')
+	{
+		list = ft_lstnew(create_collectible(j, i));
+		ft_lstadd_back(&(game->collectibles), list);
+	}
+	else if (game->map[i][j] == 'E')
+	{
+		list = ft_lstnew(create_exit(j, i));
+		ft_lstadd_back(&(game->exits), list);
+	}
+	else if (game->map[i][j] == 'D')
+	{
+		list = ft_lstnew(create_player(j, i));
+		ft_lstadd_back(&(game->enemies), list);
+	}
 }
 
 void	ft_game_set(t_game *game)
 {
 	unsigned int	i;
 	unsigned int	j;
-	t_list			*list;
 
 	game->part_height = 100;
 	game->part_width = 100;
@@ -70,27 +57,7 @@ void	ft_game_set(t_game *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] == 'P')
-			{
-				game->map[i][j] = '0';
-				list = ft_lstnew(create_player(j, i));
-				ft_lstadd_back(&(game->players), list);
-			}
-			else if (game->map[i][j] == 'C')
-			{
-				list = ft_lstnew(create_collectible(j, i));
-				ft_lstadd_back(&(game->collectibles), list);
-			}
-			else if (game->map[i][j] == 'E')
-			{
-				list = ft_lstnew(create_exit(j, i));
-				ft_lstadd_back(&(game->exits), list);
-			}
-			else if (game->map[i][j] == 'D')
-			{
-				list = ft_lstnew(create_player(j, i));
-				ft_lstadd_back(&(game->enemies), list);
-			}
+			game_set_norm(game, i, j);
 			j++;
 		}
 		i++;

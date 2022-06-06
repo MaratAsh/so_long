@@ -72,7 +72,7 @@ static void	load_textures_2(t_game *game)
 	load_obj_textures(game, &(game->textures.players_up),
 		"./textures/player/up/");
 	load_obj_textures(game, &(game->textures.enemies),
-					  "./textures/enemy/notactive/");
+		"./textures/enemy/notactive/");
 	load_obj_textures(game, &(game->textures.exits_close),
 		"./textures/exit/close/");
 	load_obj_textures(game, &(game->textures.exits_open),

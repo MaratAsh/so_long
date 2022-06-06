@@ -32,9 +32,30 @@ static void	draw_objects(t_game *game)
 	}
 }
 
+static void	draw_cell(t_game *game, unsigned int i, unsigned int j)
+{
+	void	*img;
+
+	img = game->textures.background.image;
+	mlx_put_image_to_window(game->mlx, game->mlx_win, img,
+		game->part_width * j + game->padding_rl,
+		game->part_height * i + game->padding_tb);
+	img = NULL;
+	if (game->map[i][j] == '1')
+		draw_map_wall(game, j, i);
+	else if (game->map[i][j] == 'E')
+		img = ((t_texture *) game->textures
+				.exits_close->content)->image;
+	else
+		img = NULL;
+	if (img)
+		mlx_put_image_to_window(game->mlx, game->mlx_win, img,
+			game->part_width * j + game->padding_rl,
+			game->part_height * i + game->padding_tb);
+}
+
 void	ft_draw_all(t_game *game)
 {
-	void			*img;
 	unsigned int	i;
 	unsigned int	j;
 
@@ -44,22 +65,7 @@ void	ft_draw_all(t_game *game)
 		j = 0;
 		while (j < game->width)
 		{
-			img = game->textures.background.image;
-			mlx_put_image_to_window(game->mlx, game->mlx_win, img,
-				game->part_width * j + game->padding_rl,
-				game->part_height * i + game->padding_tb);
-			img = NULL;
-			if (game->map[i][j] == '1')
-				draw_map_wall(game, j, i);
-			else if (game->map[i][j] == 'E')
-				img = ((t_texture *) game->textures
-						.exits_close->content)->image;
-			else
-				img = NULL;
-			if (img)
-				mlx_put_image_to_window(game->mlx, game->mlx_win, img,
-					game->part_width * j + game->padding_rl,
-					game->part_height * i + game->padding_tb);
+			draw_cell(game, i, j);
 			j++;
 		}
 		i++;

@@ -1,6 +1,3 @@
-//
-// Created by Altagracia Cierra on 5/19/22.
-//
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -13,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../so_long.h"
 
 t_object	*get_exit(t_game *game, unsigned map_x, unsigned map_y)
@@ -23,21 +19,21 @@ t_object	*get_exit(t_game *game, unsigned map_x, unsigned map_y)
 	list = game->exits;
 	while (list)
 	{
-		if (((t_object *) list->content)->map_x == map_x &&
-				((t_object *) list->content)->map_y == map_y)
+		if (((t_object *) list->content)->map_x == map_x
+			&& ((t_object *) list->content)->map_y == map_y)
 			return ((t_object *) list->content);
 		list = list->next;
 	}
 	return (NULL);
 }
 
-int 	is_player_can_move_to(t_game *game, unsigned int x, unsigned int y)
+int	is_player_can_move_to(t_game *game, unsigned int x, unsigned int y)
 {
 	t_list		*l;
 	t_player	*p;
 
-	if (game->current_player->state & CHARACTER_RUN ||
-		game->current_player->state & CHARACTER_DIED)
+	if (game->current_player->state & CHARACTER_RUN
+		|| game->current_player->state & CHARACTER_DIED)
 		return (0);
 	l = game->players;
 	while (l)
@@ -58,7 +54,7 @@ int 	is_player_can_move_to(t_game *game, unsigned int x, unsigned int y)
 	return (0);
 }
 
-int		game_condition_has_alive(t_game *game)
+int	game_condition_has_alive(t_game *game)
 {
 	t_list		*list;
 	t_player	*p;
