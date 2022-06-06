@@ -14,11 +14,11 @@
 
 char	*ft_get_content(int fd)
 {
-	char	*str;
-	char	*new_str;
-	int		buff_c;
-	size_t	readed;
-	size_t	str_len;
+	char			*str;
+	char			*new_str;
+	int				buff_c;
+	long long int	readed;
+	long long int	str_len;
 
 	buff_c = 1;
 	str = malloc(BUFFER_SIZE * buff_c + 1);
