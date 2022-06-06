@@ -37,25 +37,28 @@ static void	delete_collectable(t_game *game, unsigned int x, unsigned int y)
 	}
 }
 
+static void	open_exits(t_game *game)
+{
+	t_list	*list;
+
+	list = game->exits;
+	while (list)
+	{
+		((t_object *) list->content)->state = EXIT_TRANSITION;
+		((t_object *) list->content)->texture = game->textures.exits_transition;
+		list = list->next;
+	}
+}
+
 static void	command_processing_move_post(t_game *game, unsigned int x,
 											unsigned int y)
 {
-	t_list		*list;
-
 	if (game->map[y][x] == 'C')
 	{
 		game->map[y][x] = '0';
 		delete_collectable(game, x, y);
 		if (!game->collectibles)
-		{
-			list = game->exits;
-			while (list)
-			{
-				((t_object *) list->content)->state = EXIT_TRANSITION;
-				((t_object *) list->content)->texture = game->textures.exits_transition;
-				list = list->next;
-			}
-		}
+			open_exits(game);
 	}
 	else if (game->map[y][x] == 'E')
 	{
@@ -75,102 +78,6 @@ static void	command_processing_move_post(t_game *game, unsigned int x,
 	}
 }
 
-t_list		*command_processing_move_pre(t_game *game, t_player *player,
-										int move, unsigned int *cords)
-{
-	t_list		*t;
-
-	cords[0] = player->map_x;
-	if (move & CHARACTER_RIGHT)
-		cords[0] += 1;
-	else if (move & CHARACTER_LEFT)
-		cords[0] -= 1;
-	cords[1] = player->map_y;
-	if (move & CHARACTER_UP)
-		cords[1] -= 1;
-	else if (move & CHARACTER_DOWN)
-		cords[1] += 1;
-	t = NULL;
-	if (move & CHARACTER_RIGHT)
-		t = game->textures.players_right;
-	else if (move & CHARACTER_LEFT)
-		t = game->textures.players_left;
-	else if (move & CHARACTER_UP)
-		t = game->textures.players_up;
-	else if (move & CHARACTER_DOWN)
-		t = game->textures.players_down;
-	return (t);
-}
-
-/*
-t_list		*command_processing_move_pre(t_game *game, t_player *player,
-								int move, unsigned int *cords)
-{
-	t_list		*t;
-
-	t = NULL;
-	cords[0] = player->map_x;
-	if (move & CHARACTER_RIGHT)
-	{
-		cords[0] += 1;
-		t = game->textures.players_right;
-	}
-	else if (move & CHARACTER_LEFT)
-	{
-		cords[0] -= 1;
-		t = game->textures.players_left;
-	}
-	cords[1] = player->map_y;
-	if (move & CHARACTER_UP)
-	{
-		cords[1] -= 1;
-		t = game->textures.players_up;
-	}
-	else if (move & CHARACTER_DOWN)
-	{
-		cords[1] += 1;
-		t = game->textures.players_down;
-	}
-	return (t);
-}
-*/
-
-static void	command_processing_move_(t_game *game, t_player *player,
-								int move, unsigned int *cords)
-{
-	unsigned int	i;
-	unsigned int	count;
-	t_state			*state;
-	t_list			*list;
-	t_list			*t;
-	unsigned int	actual_x;
-	unsigned int	actual_y;
-
-	t = command_processing_move_pre(game, player, move, cords);
-	count = ft_lstsize(t);
-	i = 0;
-	while (i < count)
-	{
-		actual_x = cords[0] * game->part_width + game->padding_rl;
-		actual_y = cords[1] * game->part_height + game->padding_rl;
-		if (move & CHARACTER_LEFT)
-			actual_x += game->part_width / (count - i);
-		if (move & CHARACTER_RIGHT)
-			actual_x -= game->part_width / (count - i);
-		if (move & CHARACTER_UP)
-			actual_y += game->part_width / (count - i);
-		else if (move & CHARACTER_DOWN)
-			actual_y -= game->part_width / (count - i);
-		state = create_state(actual_x, actual_y, (t_texture *) t->content);
-		state->texture = (t_texture *) t->content;
-		list = ft_lstnew(state);
-		ft_lstadd_front(&(player->states), list);
-		if (t->next)
-			t = t->next;
-		i++;
-	}
-}
-
 void	command_processing_move(t_game *game, t_player *player, int move)
 {
 	unsigned int	cords[2];
@@ -178,7 +85,7 @@ void	command_processing_move(t_game *game, t_player *player, int move)
 	command_processing_move_pre(game, player, move, cords);
 	if (is_player_can_move_to(game, cords[0], cords[1]))
 	{
-		command_processing_move_(game, player, move, cords);
+		command_processing_move_moment(game, player, move, cords);
 		player->state = CHARACTER_RUN;
 		player->map_next_x = cords[0];
 		player->map_next_y = cords[1];

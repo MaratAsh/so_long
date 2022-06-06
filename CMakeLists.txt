@@ -112,6 +112,7 @@ add_executable(so_long
         srcs/set_textures.c srcs/draw.c srcs/command_processing_move.c srcs/create_state.c srcs/game_conditions.c
         srcs/draw_2.c srcs/moment_processing_over.c srcs/game_after_move.c srcs/window.c
         srcs/process_animation_player.c srcs/process_animation_exits.c srcs/game_create_objects.c
+        srcs/command_processing_move_utils.c
         )
 
 add_executable(so_long_bonus
@@ -121,6 +122,7 @@ add_executable(so_long_bonus
         srcs/set_textures.c srcs/draw.c srcs/command_processing_move.c srcs/create_state.c srcs/game_conditions.c
         srcs/draw_2.c srcs/moment_processing_over.c srcs/game_after_move.c srcs/window.c srcs/map_check_bonus.c
         srcs/process_animation_player.c srcs/process_animation_exits.c srcs/game_create_objects.c
+        srcs/command_processing_move_utils.c
         )
 
 target_link_libraries(so_long ft)
@@ -134,4 +136,5 @@ else ()
 target_link_libraries(so_long mlx "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
 target_link_libraries(so_long_bonus mlx "-L/usr/lib" "-lXext" "-lX11" "-lm" "-lz")
 add_definitions(-DLinux=1)
+
 endif()

@@ -160,51 +160,56 @@ enum
 	WALL_NO		= 0b0000,
 };
 
-int		ft_parse_map_file(char *map_file, t_game *game);
-void	ft_game_set(t_game *game);
-void	load_textures(t_game *game);
-void	set_textures(t_game *game);
-//t_game	*ft_parse(char *map_file, t_game *map);
-void	ft_error(char *msg);
-void	ft_map_check(t_game *game);
-void	ft_draw_all(t_game *game);
-int		command_processing(int keycode, t_game *game);
-int		moment_processing(t_game *game);
-int		moment_processing_over(t_game *game);
+int			ft_parse_map_file(char *map_file, t_game *game);
+void		ft_game_set(t_game *game);
+void		load_textures(t_game *game);
+void		set_textures(t_game *game);
+void		ft_error(char *msg);
+void		ft_map_check(t_game *game);
+void		ft_draw_all(t_game *game);
+int			command_processing(int keycode, t_game *game);
+int			moment_processing(t_game *game);
+int			moment_processing_over(t_game *game);
 
-void	draw(t_game *game, void *img, unsigned int x, unsigned int y);
-void	draw_map_background(unsigned int x, unsigned int y, t_game *game);
-void	draw_map_collectible(t_game *game, t_object *c);
-void	draw_map_player(t_game *game, t_player *p);
-void	draw_map_player_state(t_game *game, t_player *p);
-void	draw_map_wall(t_game *game, unsigned int map_x, unsigned int map_y);
-void	draw_map_exit(t_game *game, t_object *o);
+void		draw(t_game *game, void *img, unsigned int x, unsigned int y);
+void		draw_map_background(unsigned int x, unsigned int y, t_game *game);
+void		draw_map_collectible(t_game *game, t_object *c);
+void		draw_map_player(t_game *game, t_player *p);
+void		draw_map_player_state(t_game *game, t_player *p);
+void		draw_map_wall(t_game *game, unsigned int map_x, unsigned int map_y);
+void		draw_map_exit(t_game *game, t_object *o);
 
-t_state	*create_state(unsigned int x, unsigned int y, t_texture *texture);
+t_state		*create_state(unsigned int x, unsigned int y, t_texture *texture);
 
-void	command_processing_move(t_game *game, t_player *player, int move);
+void		command_processing_move(t_game *game, t_player *player, int move);
 
 // game_conditions.c
-int		is_player_can_move_to(t_game *game, unsigned int x, unsigned int y);
-int		game_condition_has_alive(t_game *game);
+int			is_player_can_move_to(t_game *game, unsigned int x, unsigned int y);
+int			game_condition_has_alive(t_game *game);
 
-void	map_check_bonus(t_game *game);
-void	ft_check_objects_requirements(t_game *game, int *params);
+void		map_check_bonus(t_game *game);
+void		ft_check_objects_requirements(t_game *game, int *params);
 
-void	ft_check_map_around_wall(t_game *map);
+void		ft_check_map_around_wall(t_game *map);
 
-void	game_after_move(struct s_map *g, unsigned int count);
-void	game_after_move_graph(t_game *g, unsigned int count);
+void		game_after_move(struct s_map *g, unsigned int count);
+void		game_after_move_graph(t_game *g, unsigned int count);
 
 // window.c
-int		window_close(t_game *params);
+int			window_close(t_game *params);
 
-void	process_animation_player(t_game *g, t_player *p, unsigned int m);
-void	process_animation_exits(t_game *game, unsigned int moment_id);
+void		process_animation_player(t_game *g, t_player *p, unsigned int m);
+void		process_animation_exits(t_game *game, unsigned int moment_id);
 
 t_object	*create_collectible(unsigned int x, unsigned int y);
 t_object	*create_exit(unsigned int x, unsigned int y);
 t_player	*create_player(unsigned int x, unsigned int y);
 
+// command_processing_move_utils.c
+
+t_list		*command_processing_move_pre(t_game *game, t_player *player,
+				int move, unsigned int *cords);
+void		command_processing_move_moment(t_game *game, t_player *player,
+				int move, unsigned int *cords);
 
 #endif
