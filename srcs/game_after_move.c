@@ -32,7 +32,9 @@ void	game_after_move_graph(t_game *g, unsigned int count)
 		return ;
 	draw_map_wall(g, 0, 0);
 	draw_map_wall(g, 1, 0);
-	mlx_string_put(g->mlx, g->mlx_win, 0, (g->part_height - 30) / 2,
+	mlx_string_put(g->mlx, g->mlx_win,
+		g->padding_rl + g->part_width * 0.1,
+		g->padding_tb + (g->part_height - 30) / 2,
 		0xFFFFFF, str);
 	free(str_num);
 	free(str);
