@@ -71,7 +71,7 @@ static void	command_processing_move_post(t_game *game, unsigned int x,
 		game->current_player->state = CHARACTER_DIED | CHARACTER_RUN;
 		if (!game_condition_has_alive(game))
 		{
-			game->endtext = "You are Lose!";
+			game->endtext = "Game Over!";
 			mlx_key_hook(game->mlx_win, NULL, game);
 			mlx_loop_hook(game->mlx, moment_processing_over, game);
 		}
