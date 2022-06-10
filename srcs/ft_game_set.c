@@ -63,5 +63,6 @@ void	ft_game_set(t_game *game)
 		i++;
 	}
 	game->height = i;
-	game->current_player = (t_player *) game->players->content;
+	if (game->players)
+		game->current_player = (t_player *) game->players->content;
 }

@@ -18,6 +18,8 @@ void	ft_check_objects_requirements(t_game *game, int *params)
 		ft_error("Error: Map: collectible items not exist\n");
 	if (params[3] < 1)
 		ft_error("Error: Map: exit not exist\n");
+	if (!game->players)
+		ft_error("Error: Map: player not exist\n");
 	if (!game->exits)
 		ft_error("Error: Map: starting position not exist\n");
 }
