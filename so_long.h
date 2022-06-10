@@ -168,6 +168,7 @@ void		ft_error(char *msg);
 void		ft_map_check(t_game *game);
 void		ft_draw_all(t_game *game);
 int			command_processing(int keycode, t_game *game);
+int			command_processing_over(int keycode, t_game *game);
 int			moment_processing(t_game *game);
 int			moment_processing_over(t_game *game);
 

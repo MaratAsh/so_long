@@ -56,3 +56,11 @@ int	command_processing(int keycode, t_game *game)
 		ft_draw_all(game);
 	return (0);
 }
+
+int	command_processing_over(int keycode, t_game *game)
+{
+	(void) game;
+	if (keycode == KEYBOARD_ESC)
+		exit(0);
+	return (0);
+}
